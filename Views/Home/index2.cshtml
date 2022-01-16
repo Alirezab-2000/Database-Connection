@@ -1,0 +1,13 @@
+﻿@model object
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2 style="text-align: center">choose one of these panels</h2>
+
+
+<a style="margin-top: 3rem" asp-controller="Home" asp-action="Main" type="button" class="btn btn-primary btn-lg btn-block">Direct connection with Database</a>
+<a style="margin-top: 2rem" asp-controller="Student" asp-action="Index" type="button" class="btn btn-primary btn-lg btn-block">Student panel</a>
+<a style="margin-top: 2rem" asp-controller="Professor" asp-action="Index" type="button" class="btn btn-primary btn-lg btn-block">instructor panel</a>

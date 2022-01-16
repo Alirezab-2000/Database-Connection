@@ -1,0 +1,26 @@
+﻿@model FirstConnectionViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+
+    <div class="O-container">
+        <form asp-controller="home" asp-action="Index" method="post">
+            <div class="form-group">
+                <label asp-for="DataBaseName" for="formGroupExampleInput">Database Name</label>
+                <input asp-for="DataBaseName" type="text" class="form-control" id="formGroupExampleInput" value="university">
+            </div>
+            <div class="form-group">
+                <label asp-for="UserName" for="formGroupExampleInput2">User Name</label>
+                <input asp-for="UserName" type="text" class="form-control" id="formGroupExampleInput2" value="root">
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" for="formGroupExampleInput2">Password</label>
+                <input asp-for="Password" type="password" class="form-control" id="formGroupExampleInput2">
+            </div>
+            <button type="submit" class="btn btn-primary O-signIn-btn">Register</button>
+        </form>
+    </div>
+</div>

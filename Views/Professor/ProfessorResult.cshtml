@@ -1,0 +1,190 @@
+﻿@using System.Numerics
+@model ProfessorResultViewModel
+
+
+<div id="user-profile-2" class="user-profile">
+    <div class="tabbable">
+        <div class="tab-content no-border padding-24">
+            <div id="home" class="tab-pane in active">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3 center">
+                        <span class="profile-picture">
+                            <img class="editable img-responsive" alt=" Avatar" id="avatar2" src="http://bootdey.com/img/Content/avatar/avatar1.png">
+                        </span>
+
+                        <div class="space space-4"></div>
+                    </div><!-- /.col -->
+
+                    <div class="col-xs-12 col-sm-9">
+                        <h4 class="blue">
+                            <span class="middle">@Model.ProfileDetails[0]</span>
+                        </h4>
+
+                        <div class="profile-user-info">
+                            <div class="profile-info-row">
+                                <div style="float: left; padding-right: 10px; color: #6f42c1" class="profile-info-name"> department </div>
+
+                                <div class="profile-info-value">
+                                    <span>@Model.ProfileDetails[1]</span>
+                                </div>
+                            </div>
+
+                            <div class="profile-info-row">
+                                <div style="float: left; padding-right: 10px; color: #6f42c1" class="profile-info-name"> salary </div>
+
+                                <div class="profile-info-value">
+                                    <span>@Model.ProfileDetails[2]</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hr hr-8 dotted"></div>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+
+                <div class="space-20"></div>
+            </div><!-- /#home -->
+
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+
+<h3>teaches</h3>
+<hr>
+<br>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">number</th>
+        @{
+            int counter = 0;
+        }
+        @foreach (string column in Model.Results[0].ColumnName)
+        {
+            @if (column == "dept_name")
+            {
+                <th scope="col">departmant name</th>
+            }
+            else if (column == "grade")
+            {
+                <th scope="col">score</th>
+            }
+            else if (column == "course_id" || column == "sec_id" || column == "ID")
+            {
+                continue;
+            }
+            else
+            {
+                <th scope="col">@column</th>
+            }
+        }
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (MainViewModel viewModel in Model.Results)
+    {
+        counter = counter + 1;
+        <tr>
+            <th scope="row">@counter</th>
+            @for (int i = 1; i < viewModel.Amount.Count; i++)
+            {
+                <td>
+                    @viewModel.Amount[i]
+                </td>
+            }
+
+        </tr>
+    }
+    </tbody>
+</table>
+
+<br>
+<br>
+
+<h3>students</h3>
+<hr>
+<br>
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        @try
+        {
+            string column = Model.StudentResults[0].ColumnName[0];
+            <th scope="row">number</th>
+        }
+        catch
+        {
+        }
+        @{
+            int counter2 = 0;
+        }
+        @try
+        {
+            @foreach (string column in Model.StudentResults[0].ColumnName)
+            {
+                @if (column == "dept_name")
+                {
+                    <th scope="col">departmant name</th>
+                }
+                else if (column == "grade")
+                {
+                    <th scope="col">score</th>
+                }
+                else if (column == "course_id" || column == "sec_id" || column == "ID")
+                {
+                    continue;
+                }
+                else
+                {
+                    <th scope="col">@column</th>
+                }
+            }
+        }
+        catch
+        {
+            <h2>no student</h2>
+        }
+
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (MainViewModel viewModel in Model.StudentResults)
+    {
+        counter2 = counter2 + 1;
+        <tr>
+            @try
+            {
+                string column = Model.StudentResults[0].ColumnName[0];
+                <th scope="row">@counter2</th>
+            }
+            catch
+            {
+            }
+            @for (int i = 0; i < viewModel.Amount.Count; i++)
+            {
+                if (i == viewModel.Amount.Count - 1)
+                {
+                    continue;
+                }
+                else if (i == 0)
+                {
+                    <td>
+                        <a style="color: black" asp-controller="Student" asp-action="ResultIndex" asp-route-ID="@viewModel.Amount[viewModel.Amount.Count - 1]">
+                            @viewModel.Amount[i]
+                        </a>
+                    </td>
+                    continue;
+                }
+                <td>
+                    @viewModel.Amount[i]
+                </td>
+            }
+
+        </tr>
+    }
+    </tbody>
+</table>

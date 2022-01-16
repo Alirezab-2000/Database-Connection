@@ -1,0 +1,11 @@
+﻿@model ProfessorSignInViewModel
+
+
+<form style="width: 70%;margin: 10rem auto;" asp-controller="Professor" asp-action="ResultIndex" method="get" class="form-inline">
+    <div class="form-group mx-sm-3 mb-2">
+        <label for="formGroupExampleInput" style="margin-right: .6rem;">Enter your Id</label>
+        <input asp-for="ID" asp-route-ID style="width: 35rem;" class="form-control" id="formGroupExampleInput" placeholder="your ID">
+        <span asp-validation-for="ID"></span>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">login</button>
+</form>

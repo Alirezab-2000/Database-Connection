@@ -1,0 +1,92 @@
+﻿@model FirstMainViewModel
+
+@{
+    ViewData["Title"] = "Main Page";
+
+    var reader = Model.Data;
+}
+
+<!--<form>
+    <div class="form-row align-items-center" style="width: 50%; margin: 4rem auto;">
+        <div class="col-auto my-1" style="width: 26rem;">
+            <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                <option selected>Choose Table you want</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div>
+        <div class="col-auto my-1">
+            <button type="submit" class="btn btn-primary">change Table</button>
+        </div>
+    </div>
+</form>-->
+
+
+<h1>All Rows of instructor table</h1>
+
+@if (reader.Count > 0)
+{
+    <a class="btn btn-primary mb-3" style="width:auto" asp-action="AddNewRow"
+       asp-controller="Home">
+        Add new Row
+    </a>
+
+    foreach (var row in reader)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                Id : @row.Item1
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">name : @row.Item2</h5>
+                <h5> dept_name : @row.Item3</h5>
+                <h5 class="card-title">salary : @row.Item4</h5>
+            </div>
+            <div class="card-footer">
+                <form asp-action="DeleteRow" asp-route-id="@row.Item1.ToString()" asp-controller="Home" method="post">
+
+                    <a asp-controller="Home" asp-action="EditRow"
+                       asp-route-id="@row.Item1" asp-route-name="@row.Item2" asp-route-dept_name="@row.Item3"
+                       asp-route-salary="@row.Item4" class="btn btn-primary">
+                        Edit
+                    </a>
+
+
+                    <span id="confirmDeleteSpan_@row.Item1.ToString()" style="display: none;">
+                        <span>Are you sure to delete?</span>
+                        <button type="submit" asp-action="DeleteRow" asp-route-id="@row.Item1.ToString()" class="btn btn-danger">Yes</button>
+                        <a class="btn btn-primary" style="color: white" onclick="confirmDelete('@row.Item1.ToString()', false)">No</a>
+                    </span>
+                    <span id="deleteSpan_@row.Item1.ToString()">
+                        <a class="btn btn-danger" style="color: white" onclick="confirmDelete('@row.Item1.ToString()', true)">Delete</a>
+                    </span>
+
+                </form>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            No Rows created yet
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                Use the button below to create a Row
+            </h5>
+            <a class="btn btn-primary" style="width:auto"
+               asp-controller="Home" asp-action="AddNewRow">
+                Create Row
+            </a>
+        </div>
+    </div>
+}
+
+@section Scripts
+{
+    <script src="~/js/site.js"></script>
+}
